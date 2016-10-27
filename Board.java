@@ -8,17 +8,18 @@ public class Board {
     private final int n;
     private final char[] blocks;
     private int blankpos;
+
     // first row = 1
     private int row(int p) {
         return (int) Math.ceil((double)p/(double)n);
     }
-    
+
     // first column = 1
     private int col(int p) {
         if (p%n == 0) return n;
         return p%n;
     }
-    
+
     // construct a board from an n-by-n array of blocks
     // (where blocks[i][j] = block in row i, column j)
     // -for-loop int -> char
@@ -36,12 +37,12 @@ public class Board {
             }
         }
     }
-    
+
     // board dimension n
     public int dimension() {
         return n;
     }
-    
+
     // number of blocks out of place
     // -count++ if blocks[i]!=corresponding char
     public int hamming() {
@@ -52,7 +53,7 @@ public class Board {
         }
         return hamming;
     }
-    
+
     // sum of Manhattan distances between blocks and goal
     // -compare blocks[i].row to i.row & cks[i].col to i.col
     public int manhattan() {
@@ -65,7 +66,7 @@ public class Board {
         }
         return manhattan;
     }
-    
+
     // is this board the goal board?
     // -compare bloacks[i+1] > [i]
     public boolean isGoal() {
@@ -74,7 +75,7 @@ public class Board {
         }
         return true;
     }
-    
+
     // a board that is obtained by exchanging any pair of blocks
     // -randomly swap a pair of blocks
     public Board twin() {
@@ -126,7 +127,7 @@ public class Board {
         Board twinBoard = new Board(toTwoDarray(twin));
         return twinBoard;
     }
-    
+
     // does this board equal y?
     public boolean equals(Object y) {
         if (y == this) return true;
@@ -136,7 +137,7 @@ public class Board {
         if (!Arrays.equals(this.blocks, that.blocks)) return false;
         return true;
     }
-    
+
     // all neighboring boards
     // -stack push item, return stack
     public Iterable<Board> neighbors() {
@@ -168,7 +169,7 @@ public class Board {
         }
         return stackNeighbors;
     }
-    
+
     // string representation of this board (in the output format specified below)
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -183,7 +184,7 @@ public class Board {
         }
         return s.toString();
     }
-    
+
     //swap functions
     private void swapAbove(char[] oneDarray, int k) {
         char temp = oneDarray[k];
@@ -205,7 +206,7 @@ public class Board {
         oneDarray[k] = oneDarray[k+1];
         oneDarray[k+1] = temp;
     }
-    
+
     private int[][] toTwoDarray(char[] oneDarray) {
         int k = 0 ;
         int[][] blocks = new int[n][n];
@@ -216,7 +217,7 @@ public class Board {
         }
         return blocks;
     }
-    
+
     // unit tests
     public static void main(String[] args) {
         // create initial board from file
@@ -236,6 +237,6 @@ public class Board {
         for (Board neighbor: initial.neighbors()) {
             StdOut.println("neighbor:\n"+ neighbor);
         } //test
-        
+
     }
 }
