@@ -32,7 +32,6 @@ public class Board {
             for (int j = 0; j < n; j++) {
                 this.blocks[k] = (char) blocks[i][j];
                 if (blocks[i][j]==0) blankpos = k;
-                //StdOut.println("blocks["+k+"]= "+(int) this.blocks[k]);//test
                 k ++;
             }
         }
@@ -48,8 +47,8 @@ public class Board {
     public int hamming() {
         int hamming = 0;
         for (int k = 0, ans = 1; k < n*n; k++, ans++) {
-            if ((int)blocks[k] == 0) continue;
-            if ((int)blocks[k] != ans) hamming++;
+            if (blocks[k] == 0) continue;
+            if (blocks[k] != ans) hamming++;
         }
         return hamming;
     }
@@ -59,9 +58,9 @@ public class Board {
     public int manhattan() {
         int manhattan = 0;
         for (int k = 0; k < n*n; k++) {
-            if ((int)blocks[k] == 0) continue;
-            int rowdiff = Math.abs(row((int)blocks[k]) - row(k+1));
-            int coldiff = Math.abs(col((int)blocks[k]) - col(k+1));
+            if (blocks[k] == 0) continue;
+            int rowdiff = Math.abs(row(blocks[k]) - row(k+1));
+            int coldiff = Math.abs(col(blocks[k]) - col(k+1));
             manhattan = manhattan + rowdiff + coldiff;
         }
         return manhattan;
@@ -71,7 +70,7 @@ public class Board {
     // -compare bloacks[i+1] > [i]
     public boolean isGoal() {
         for (int k = 0 ; k < n*n-2; k++) {
-            if ((int)blocks[k] > (int)blocks[k+1]) return false;
+            if (blocks[k] > blocks[k+1]) return false;
         }
         return true;
     }
@@ -85,14 +84,14 @@ public class Board {
         int k = 0;
         do {
             k=StdRandom.uniform(n*n);
-        } while ((int)blocks[k]==0);
+        } while (blocks[k]==0);
         // choose an exchange direction
         while (swapSuccess == false) {
             int choice = StdRandom.uniform(4);
             switch(choice) {
                 case 0 : //swapAbove
                     if(row(k+1)==1) swapSuccess = false;
-                    else if((int)twin[k-n]==0) swapSuccess = false;
+                    else if(twin[k-n]==0) swapSuccess = false;
                     else {
                         swapAbove(twin,k);
                         swapSuccess = true;
@@ -100,7 +99,7 @@ public class Board {
                     break;
                 case 1 : //swapBelow
                     if(row(k+1)==n) swapSuccess = false;
-                    else if((int)twin[k+n]==0) swapSuccess = false;
+                    else if(twin[k+n]==0) swapSuccess = false;
                     else {
                         swapBelow(twin,k);
                         swapSuccess = true;
@@ -108,7 +107,7 @@ public class Board {
                     break;
                 case 2 : //swapLeft
                     if(col(k+1)==1) swapSuccess = false;
-                    else if((int)twin[k-1]==0) swapSuccess = false;
+                    else if(twin[k-1]==0) swapSuccess = false;
                     else {
                         swapLeft(twin,k);
                         swapSuccess = true;
@@ -116,7 +115,7 @@ public class Board {
                     break;
                 case 3 : //swapRight
                     if(col(k+1)==n) swapSuccess = false;
-                    else if((int)twin[k+1]==0) swapSuccess = false;
+                    else if(twin[k+1]==0) swapSuccess = false;
                     else {
                         swapRight(twin,k);
                         swapSuccess = true;
