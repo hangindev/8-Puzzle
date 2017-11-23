@@ -67,7 +67,7 @@ public class Board {
     }
 
     // is this board the goal board?
-    // -compare bloacks[i+1] > [i]
+    // -compare blocks[i+1] > [i]
     public boolean isGoal() {
         for (int k = 0 ; k < n * n - 2; k++) {
             if (blocks[k] > blocks[k + 1]) return false;
